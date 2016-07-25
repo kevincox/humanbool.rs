@@ -1,8 +1,10 @@
 [package]
 name = "humanbool"
+description = "Parse human-entered booleans."
 version = "1.0.0"
 homepage = "https://github.com/kevincox/humanbool.rs"
 repository = "https://github.com/kevincox/humanbool.rs"
 authors = ["Kevin Cox <kevincox@kevincox.ca>"]
+license = "Zlib"
 
 [dependencies]
