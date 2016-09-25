@@ -1,4 +1,6 @@
 use std::env;
+use std::ops;
+use std::str;
 
 #[derive(Debug,PartialEq)]
 pub enum Error { Empty, Unknown }
@@ -46,9 +48,28 @@ pub fn env(k: &str, default: &str) -> Result<bool, Error> {
 	}
 }
 
+pub struct HumanBool(bool);
+
+impl str::FromStr for HumanBool {
+	type Err = Error;
+	
+	fn from_str(s: &str) -> Result<Self, Self::Err> {
+		parse(s).map(|b| HumanBool(b))
+	}
+}
+
+impl ops::Deref for HumanBool {
+	type Target = bool;
+	
+	fn deref(&self) -> &Self::Target {
+		&self.0
+	}
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use std::str::FromStr;
 	
 	#[test]
 	fn yn() {
@@ -91,5 +112,11 @@ mod tests {
 	#[test]
 	fn empty() {
 		assert!(parse("") == Err(Error::Empty));
+	}
+	
+	#[test]
+	fn deref_from_str() {
+		assert!(*HumanBool::from_str("y").unwrap() == true);
+		assert!(*HumanBool::from_str("no").unwrap() == false);
 	}
 }
