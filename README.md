@@ -1,5 +1,7 @@
 # Human Bool (for Rust)
 
+**MOVED TO https://gitlab.com/kevincox/humanbool-rs**
+
 A simple library to parse human entered booleans, especially those from environment variables.
 
 Currently the following strings are supported:
